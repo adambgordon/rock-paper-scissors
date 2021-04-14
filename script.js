@@ -34,7 +34,18 @@ function firstPlayerWins(player1, player2) {
     }
 }
 
+function printRoundWinner (status, playerSelection, computerSelection) {
+    if (status === "tie") {
+        console.log("Tie! You both selected " + playerSelection + ".");
+    } else if (status === "player") {
+        console.log("You Win! " + playerSelection + " beats " + computerSelection + ".");
+    } else {
+        console.log("You Lose! " + computerSelection + " beats " + playerSelection + ".");
+    }
+}
+
 // Runs a round of the game
+// Returns tie, player is winner, or computer is winner
 function playRound (playerSelection, computerSelection) {
 
     let gameMessage;
@@ -46,18 +57,12 @@ function playRound (playerSelection, computerSelection) {
     console.log("Computer: " + c);
 
     if (p === c) {
-        gameMessage = "Tie! " + p + " = " + c + ".";
-        return gameMessage;
-    }
-
-    let playerWins = firstPlayerWins(p,c);
-
-    if (playerWins === true) {
-        gameMessage = "You Win! " + p + " beats " + c + ".";
+        gameMessage = "tie";
+    } else if (firstPlayerWins(p,c) === true) {
+        gameMessage = "player";
     } else {
-        gameMessage = "You Lose! " + c + " beats " + p + ".";
+        gameMessage = "computer";
     }
-    
 
     return gameMessage;
 }
@@ -68,12 +73,39 @@ function game () {
     let playerSelection;
     let computerSelection;
 
+    let playerScore = 0;
+    let computerScore = 0;
+
+
     for (let i = 0; i < 5; i++) {
         console.log("Round " + (i+1));
+
         playerSelection = prompt();
         computerSelection = computerPlay();
-        console.log (playRound(playerSelection,computerSelection));
+
+        let winner = playRound(playerSelection,computerSelection);
+        if (winner === "player") {
+            playerScore++;
+        } else if (winner === "computer") {
+            computerScore++;
+        }
+        printRoundWinner(winner,playerSelection,computerSelection);
     }
+    printGameWinner(playerScore, computerScore);
+
+}
+
+function printGameWinner (playerScore, computerScore) {
+    let gameWinner;
+    if (playerScore > computerScore) {
+        gameWinner = "Player";
+    } else if (playerScore < computerScore) {
+        gameWinner = "Computer";
+    } else {
+        gameWinner = "Nobody";
+    }
+    console.log("Final score: Player - " + playerScore + ", Computer - " + computerScore + ".");
+    console.log(gameWinner + " wins.");
 }
 
 game();
