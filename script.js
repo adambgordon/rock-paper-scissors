@@ -1,7 +1,14 @@
 
 // Generates random selection for the computer
 function computerPlay() {
-    return "scissors";
+    let randomInt = Math.random()*3;
+    if (randomInt < 1) {
+        return "rock";
+    } else if (randomInt < 2) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
 }
 
 // Converts string to sentence case
@@ -27,7 +34,7 @@ function firstPlayerWins(player1, player2) {
     }
 }
 
-// Plays a round of the game
+// Runs a round of the game
 function playRound (playerSelection, computerSelection) {
 
     let gameMessage;
@@ -55,7 +62,18 @@ function playRound (playerSelection, computerSelection) {
     return gameMessage;
 }
 
-const playerSelection = prompt();
-const computerSelection = computerPlay();
+// Runs the game
+function game () {
 
-console.log (playRound(playerSelection,computerSelection));
+    let playerSelection;
+    let computerSelection;
+
+    for (let i = 0; i < 5; i++) {
+        console.log("Round " + (i+1));
+        playerSelection = prompt();
+        computerSelection = computerPlay();
+        console.log (playRound(playerSelection,computerSelection));
+    }
+}
+
+game();
