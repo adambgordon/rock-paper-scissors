@@ -1,4 +1,3 @@
-
 // Generates random selection for the computer
 function computerPlay() {
     let randomInt = Math.random()*3;
@@ -34,6 +33,7 @@ function firstPlayerWins(player1, player2) {
     }
 }
 
+// Prints winner and outcome of the round
 function printRoundWinner (status, playerSelection, computerSelection) {
     if (status === "tie") {
         console.log("Tie! You both selected " + playerSelection + ".");
@@ -45,7 +45,7 @@ function printRoundWinner (status, playerSelection, computerSelection) {
 }
 
 // Runs a round of the game
-// Returns tie, player is winner, or computer is winner
+// Returns "tie" if tie, "player" if is winner, or "computer" if computer is winner
 function playRound (playerSelection, computerSelection) {
 
     let gameMessage;
@@ -95,6 +95,7 @@ function game () {
 
 }
 
+// Prints final score and winner of the game
 function printGameWinner (playerScore, computerScore) {
     let gameWinner;
     if (playerScore > computerScore) {
