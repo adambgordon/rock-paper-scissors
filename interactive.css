@@ -1,0 +1,18 @@
+html {
+    font-family: sans-serif;
+    background-color: lightgrey;
+}
+
+.buttons {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    margin: 1rem;
+    padding: 1.5rem;
+    width: 15rem;
+    font-size: 2rem;
+}
