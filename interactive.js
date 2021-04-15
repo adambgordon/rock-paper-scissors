@@ -2,9 +2,11 @@
 function playRound() {
     const playerSelection = this.getAttribute("data-value");
     const computerSelection = computerSelects();
-    console.log(playerSelection);
-    console.log(computerSelection);
-    console.log(evaluateRound(playerSelection,computerSelection));
+
+    let paragraph = document.createElement("p");
+    let result = document.createTextNode(evaluateRound(playerSelection,computerSelection));
+    paragraph.appendChild(result);
+    document.querySelector(".results").appendChild(paragraph);
 }
 
 

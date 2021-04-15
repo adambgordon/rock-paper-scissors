@@ -1,6 +1,11 @@
 html {
-    font-family: sans-serif;
-    background-color: lightgrey;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    margin: 3rem;
+    text-align: center;
+    font-size: 2rem;
 }
 
 .buttons {
@@ -15,4 +20,41 @@ html {
     padding: 1.5rem;
     width: 15rem;
     font-size: 2rem;
+    font-family: inherit;
+}
+
+.results {
+    margin: 1rem auto 0;
+    display: flex;
+    justify-content: center;
+    font-size: .9rem;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+}
+
+.scorebox {
+    margin: 0rem 8rem;
+    text-align: center;
+
+}
+
+.player-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.score {
+    display: flex;
+    font-family: monospace;
+    font-size: 6rem;
+    margin: 0;
+    width: 12rem;
+    height: 12rem;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color: darkgrey;
 }
