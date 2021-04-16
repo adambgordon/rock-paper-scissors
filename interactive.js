@@ -1,13 +1,11 @@
-
+// Initiates a round of the game
 function playRound() {
+    detransitionScore();
+
     const playerSelection = this.getAttribute("data-value");
     const computerSelection = computerSelects();
 
     updateGame(playerSelection, computerSelection);
-
-   /*  let paragraph = document.createElement("p");
-    paragraph.appendChild(result);
-    document.querySelector(".results").appendChild(paragraph); */
 }
 
 
@@ -27,27 +25,32 @@ function computerSelects() {
     }
 }
 
-
+// Updates the score and game message based on selections
 function updateGame (playerSelection, computerSelection) {
-
-
-    const result = evaluateRound(playerSelection,computerSelection);
-    
-    updateScore (result);
+    const result = evaluateRound(playerSelection,computerSelection);  
+    updateSelections(playerSelection,computerSelection);  
+    updateScore(result);
     updateResultMessage(result, playerSelection, computerSelection);
 
 }
 
+// Converts string to sentence case
 function toSentenceCase(s) {
     return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
 }
 
+function updateSelections(playerSelection, computerSelection) {
+    const playerSelectionElement = document.querySelector(".player-name").parentElement.lastElementChild;
+    const computerSelectionElement = document.querySelector(".computer-name").parentElement.lastElementChild;
+    playerSelectionElement.textContent = toSentenceCase(playerSelection);
+    computerSelectionElement.textContent = toSentenceCase(computerSelection);
+}
+
+
+// Returns result message for output
 function updateResultMessage(result, playerSelection, computerSelection) {
     const resultNode = document.querySelector(".result");
-    // resultNode.textContent = result;
-
     let message;
-
     if (result === "tie") {
         message = toSentenceCase(playerSelection) + " ties " + (computerSelection) + ".";
     } else if (result === "player") {
@@ -55,17 +58,17 @@ function updateResultMessage(result, playerSelection, computerSelection) {
     } else if (result === "computer") {
         message = toSentenceCase(computerSelection) + " beats " + (playerSelection) + ". Better luck next time.";
     }
-
     resultNode.textContent = message;
-
 }
 
+// Adds score node to "updating" class
 function transitionScore(name) {
     if (name === "player" || name === "computer") {
       document.querySelector(`.${name}-name`).nextElementSibling.classList.add("updating");
     }
 }
 
+// Removes score node from "updating" class
 function detransitionScore() {
     const node = document.querySelector(".updating");
     if (node !== null) node.classList.remove("updating");
@@ -97,7 +100,6 @@ function setComputerScore(score) {
 
 // Updates the score of the game
 function updateScore (result) {
-    detransitionScore(result);
     if (result === "player") {
         setPlayerScore(getPlayerScore()+1);
     } else if (result === "computer") {
@@ -109,9 +111,7 @@ function updateScore (result) {
 // Evaluates a round of the game
 // Returns "tie" if tie, "player" if is winner, or "computer" if computer is winner
 function evaluateRound (playerSelection, computerSelection) {
-
     let gameMessage;
-
     if (playerSelection === computerSelection) {
         gameMessage = "tie";
     } else if (playerWins(playerSelection,computerSelection) === true) {
@@ -119,9 +119,6 @@ function evaluateRound (playerSelection, computerSelection) {
     } else {
         gameMessage = "computer";
     }
-
-    gameMessage
-
     return gameMessage;
 }
 

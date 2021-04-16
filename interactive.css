@@ -16,18 +16,37 @@ h1 {
 }
 
 .button {
-    margin: 1rem;
+    margin: 0.5rem 1rem;
     padding: 1.5rem;
     width: 15rem;
     font-size: 2rem;
     font-family: inherit;
+    font-weight: 900;
+    border: 1px solid lightgray;
+    border-radius: 2.5rem;
+    background-color: rgb(245, 245, 245);
+    letter-spacing: 0.3rem;
+}
+.button:hover {
+    cursor: pointer;
+    color: rgb(235, 152, 0);
 }
 
+.button:focus {
+    outline: none;
+}
+
+
 .results {
-    margin: 3rem;
-    display: flex;
-    justify-content: center;
+    display: block;
+    margin: 0 auto;
+    padding: 0.5rem;
+    width: 22rem;
+    text-align: center;
     font-size: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 1rem;
+    color: darkgrey;
 }
 
 .result {
@@ -35,7 +54,7 @@ h1 {
 
 .updating {
     color: rgb(235, 152, 0);
-    animation: pop 0.4s ease-in-out;
+    animation: pop 0.3s ease-in-out;
     color: black;
 }
 
@@ -53,12 +72,13 @@ h1 {
 .scorebox {
     margin: 1rem 3rem;
     text-align: center;
-
+    min-height: 18rem;
 }
 
 .player-name, .computer-name {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
+    margin: 1rem 0 0.5rem;
 }
 
 .score {
@@ -70,6 +90,11 @@ h1 {
     height: 10rem;
     align-items: center;
     justify-content: center;
-    border-style: solid;
-    border-color: darkgrey;
+    border: 1px solid lightgray;    
+    border-radius: 5px;
+}
+
+.selection {
+    font-size: 0.8rem;
+    color: darkgrey;
 }
