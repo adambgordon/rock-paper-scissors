@@ -69,9 +69,7 @@ h1 {
 }
 
 .updating-score {
-    color: rgb(235, 152, 0);
-    animation: pop-score 400ms;
-    color: black;
+    animation: pop-score 300ms;
 }
 
 @keyframes pop-score {
