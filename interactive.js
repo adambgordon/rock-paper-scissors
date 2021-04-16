@@ -3,10 +3,11 @@ function playRound() {
     const playerSelection = this.getAttribute("data-value");
     const computerSelection = computerSelects();
 
-    let paragraph = document.createElement("p");
-    let result = document.createTextNode(evaluateRound(playerSelection,computerSelection));
+    updateGame(playerSelection, computerSelection);
+
+   /*  let paragraph = document.createElement("p");
     paragraph.appendChild(result);
-    document.querySelector(".results").appendChild(paragraph);
+    document.querySelector(".results").appendChild(paragraph); */
 }
 
 
@@ -26,6 +27,85 @@ function computerSelects() {
     }
 }
 
+
+function updateGame (playerSelection, computerSelection) {
+
+
+    const result = evaluateRound(playerSelection,computerSelection);
+    
+    updateScore (result);
+    updateResultMessage(result, playerSelection, computerSelection);
+
+}
+
+function toSentenceCase(s) {
+    return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+}
+
+function updateResultMessage(result, playerSelection, computerSelection) {
+    const resultNode = document.querySelector(".result");
+    // resultNode.textContent = result;
+
+    let message;
+
+    if (result === "tie") {
+        message = toSentenceCase(playerSelection) + " ties " + (computerSelection) + ".";
+    } else if (result === "player") {
+        message = toSentenceCase(playerSelection) + " beats " + (computerSelection) + ". Congratulations.";
+    } else if (result === "computer") {
+        message = toSentenceCase(computerSelection) + " beats " + (playerSelection) + ". Better luck next time.";
+    }
+
+    resultNode.textContent = message;
+
+}
+
+function transitionScore(name) {
+    if (name === "player" || name === "computer") {
+      document.querySelector(`.${name}-name`).nextElementSibling.classList.add("updating");
+    }
+}
+
+function detransitionScore() {
+    const node = document.querySelector(".updating");
+    if (node !== null) node.classList.remove("updating");
+}
+
+// Gets player score
+function getPlayerScore() {
+    const playerScoreNode = document.querySelector(".player-name").nextElementSibling;
+    return parseInt(playerScoreNode.textContent);
+}
+
+// Sets player score
+function setPlayerScore(score) {
+    const playerScoreNode = document.querySelector(".player-name").nextElementSibling;
+    playerScoreNode.textContent = score.toString();
+}
+
+// Gets computer score
+function getComputerScore() {
+    const computerScoreNode = document.querySelector(".computer-name").nextElementSibling;
+    return parseInt(computerScoreNode.textContent);
+}
+
+// Sets computer score
+function setComputerScore(score) {
+    const computerScoreNode = document.querySelector(".computer-name").nextElementSibling;
+    computerScoreNode.textContent = score.toString();
+}
+
+// Updates the score of the game
+function updateScore (result) {
+    detransitionScore(result);
+    if (result === "player") {
+        setPlayerScore(getPlayerScore()+1);
+    } else if (result === "computer") {
+        setComputerScore(getComputerScore()+1);
+    }
+    transitionScore(result);
+}
+
 // Evaluates a round of the game
 // Returns "tie" if tie, "player" if is winner, or "computer" if computer is winner
 function evaluateRound (playerSelection, computerSelection) {
@@ -39,6 +119,8 @@ function evaluateRound (playerSelection, computerSelection) {
     } else {
         gameMessage = "computer";
     }
+
+    gameMessage
 
     return gameMessage;
 }
