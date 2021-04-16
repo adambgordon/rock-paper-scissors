@@ -1,18 +1,20 @@
-// Initiates a round of the game
-function playRound() {
-    if (getPlayerScore() < 5 && getComputerScore() < 5) {
-        const playerSelection = this.getAttribute("data-value");
-        const computerSelection = computerSelects();
-        updateGame(playerSelection, computerSelection);
-    }
-}
-
-
+// Main code
 const buttons = document.querySelectorAll(".button");
 buttons.forEach(button => button.addEventListener("click",playRound));
 
 const playAgainButton = document.querySelector(".play-again").firstElementChild;
 playAgainButton.addEventListener("click",resetGame);
+
+// All functions below
+
+// Initiates a round of the game
+function playRound() {
+    if (getPlayerScore() < 5 && getComputerScore() < 5) { // makes buttons unusable if score === 5
+        const playerSelection = this.getAttribute("data-value");
+        const computerSelection = computerSelects();
+        updateGame(playerSelection, computerSelection);
+    }
+}
 
 // Generates random selection for the computer
 function computerSelects() {
@@ -26,6 +28,7 @@ function computerSelects() {
     }
 }
 
+// Re-initializes all fields
 function resetGame() {
     setPlayerScore(0);
     setComputerScore(0);
@@ -34,6 +37,7 @@ function resetGame() {
     document.querySelector(".play-again").style.display = "none";
 }
 
+// Customizes the play again message and unhides the button
 function endGame () {
     let message;
     if (getPlayerScore() === 5) {
@@ -44,8 +48,7 @@ function endGame () {
 
     const playAgainElement = document.querySelector(".play-again");
     playAgainElement.firstElementChild.textContent = message;
-    playAgainElement.style.display = "flex";
-
+    playAgainElement.style.display = "flex"; // unhides the play again button
 }
 
 // Updates the score and game message based on selections
@@ -56,11 +59,12 @@ function updateGame (playerSelection, computerSelection) {
     updateResultMessage(result, playerSelection, computerSelection);
 }
 
-// Converts string to sentence case
+// Converts a string to sentence case
 function toSentenceCase(s) {
     return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
 }
 
+// Updates selection fields to specified parameters
 function updateSelections(playerSelection, computerSelection) {
     const playerSelectionElement = document.querySelector(".player-name").parentElement.lastElementChild;
     const computerSelectionElement = document.querySelector(".computer-name").parentElement.lastElementChild;
@@ -83,28 +87,34 @@ function updateResultMessage(result, playerSelection, computerSelection) {
         message = "Make a selection.";
     }
     resultNode.textContent = message;
-
     transitionMessage();
-
 }
 
+// Makes result message pop
 function transitionMessage() {
+    // Deactivate animation by removing from animation class
     const element = document.querySelector(".result");
     if (element.classList.contains("updating-message")) {
         element.classList.remove("updating-message");
-        void element.offsetWidth;
+        // Void code to be executed to allow for complete removal of
+        // animation class before adding it back
+        void element.offsetWidth; 
     }
+    // Activate animation by adding animation class back
     element.classList.add("updating-message");
 }
 
-
-// Adds score node to "updating-score-score" class
+// Animates the score for the round winner
 function transitionScore(name) {
+    // Deactivate animation by removing from animation class
     const element = document.querySelector(".updating-score");
     if (element !== null) {
         element.classList.remove("updating-score")
+        // Void code to be executed to allow for complete removal of
+        // animation class before adding it back
         void element.offsetWidth;
     }
+    // Activate animation by adding animation class back
     if (name === "player" || name === "computer") {
       document.querySelector(`.${name}-name`).nextElementSibling.classList.add("updating-score");
     }
@@ -134,7 +144,7 @@ function setComputerScore(score) {
     computerScoreNode.textContent = score.toString();
 }
 
-// Updates the score of the game
+// Updates the score of the game and end game if necessary
 function updateScore (result) {
     if (result === "player") {
         setPlayerScore(getPlayerScore()+1);

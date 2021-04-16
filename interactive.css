@@ -45,6 +45,7 @@ h1 {
 }
 
 @keyframes pop-message {
+    0% {font-size: 1rem;}
     50% {font-size: 1.1rem;}
     100% {font-size: 1rem;}
 }
@@ -58,12 +59,13 @@ h1 {
     align-items: center;
     border: 1px solid transparent;
     border-radius: 4px;
-    color: rgb(190, 190, 190);
     background-color: rgb(242, 242, 242);
 }
 
 .result {
     font-size: 1rem;
+    /* color: rgb(190, 190, 190); */
+    color: black;
 }
 
 .updating-score {
