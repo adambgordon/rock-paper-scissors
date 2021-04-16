@@ -1,17 +1,18 @@
 // Initiates a round of the game
 function playRound() {
-    detransitionScore();
-
-    const playerSelection = this.getAttribute("data-value");
-    const computerSelection = computerSelects();
-
-    updateGame(playerSelection, computerSelection);
+    if (getPlayerScore() < 5 && getComputerScore() < 5) {
+        const playerSelection = this.getAttribute("data-value");
+        const computerSelection = computerSelects();
+        updateGame(playerSelection, computerSelection);
+    }
 }
 
 
 const buttons = document.querySelectorAll(".button");
 buttons.forEach(button => button.addEventListener("click",playRound));
 
+const playAgainButton = document.querySelector(".play-again").firstElementChild;
+playAgainButton.addEventListener("click",resetGame);
 
 // Generates random selection for the computer
 function computerSelects() {
@@ -25,13 +26,34 @@ function computerSelects() {
     }
 }
 
+function resetGame() {
+    setPlayerScore(0);
+    setComputerScore(0);
+    updateSelections("","");
+    document.querySelector(".result").textContent = "Make a selection.";
+    document.querySelector(".play-again").style.display = "none";
+}
+
+function endGame () {
+    let message;
+    if (getPlayerScore() === 5) {
+        message = "Well done! Play again?";
+    } else if (getComputerScore() === 5) {
+        message = "You Lost. Play again?";
+    }
+
+    const playAgainElement = document.querySelector(".play-again");
+    playAgainElement.firstElementChild.textContent = message;
+    playAgainElement.style.display = "flex";
+
+}
+
 // Updates the score and game message based on selections
 function updateGame (playerSelection, computerSelection) {
     const result = evaluateRound(playerSelection,computerSelection);  
     updateSelections(playerSelection,computerSelection);  
     updateScore(result);
     updateResultMessage(result, playerSelection, computerSelection);
-
 }
 
 // Converts string to sentence case
@@ -57,21 +79,35 @@ function updateResultMessage(result, playerSelection, computerSelection) {
         message = toSentenceCase(playerSelection) + " beats " + (computerSelection) + ". Congratulations.";
     } else if (result === "computer") {
         message = toSentenceCase(computerSelection) + " beats " + (playerSelection) + ". Better luck next time.";
+    } else if (result === "reset") {
+        message = "Make a selection.";
     }
     resultNode.textContent = message;
+
+    transitionMessage();
+
 }
 
-// Adds score node to "updating" class
-function transitionScore(name) {
-    if (name === "player" || name === "computer") {
-      document.querySelector(`.${name}-name`).nextElementSibling.classList.add("updating");
+function transitionMessage() {
+    const element = document.querySelector(".result");
+    if (element.classList.contains("updating-message")) {
+        element.classList.remove("updating-message");
+        void element.offsetWidth;
     }
+    element.classList.add("updating-message");
 }
 
-// Removes score node from "updating" class
-function detransitionScore() {
-    const node = document.querySelector(".updating");
-    if (node !== null) node.classList.remove("updating");
+
+// Adds score node to "updating-score-score" class
+function transitionScore(name) {
+    const element = document.querySelector(".updating-score");
+    if (element !== null) {
+        element.classList.remove("updating-score")
+        void element.offsetWidth;
+    }
+    if (name === "player" || name === "computer") {
+      document.querySelector(`.${name}-name`).nextElementSibling.classList.add("updating-score");
+    }
 }
 
 // Gets player score
@@ -106,6 +142,7 @@ function updateScore (result) {
         setComputerScore(getComputerScore()+1);
     }
     transitionScore(result);
+    if (getPlayerScore() === 5 || getComputerScore() === 5) endGame();
 }
 
 // Evaluates a round of the game

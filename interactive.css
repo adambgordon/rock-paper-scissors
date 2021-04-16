@@ -40,14 +40,22 @@ h1 {
     outline: none;
 }
 
+.updating-message {
+    animation: pop-message 200ms;
+}
+
+@keyframes pop-message {
+    50% {font-size: 1.1rem;}
+    100% {font-size: 1rem;}
+}
 
 .results {
-    display: block;
+    display: flex;
     margin: 0 auto;
-    padding: 0.5rem;
+    height: 2rem;
     width: 22rem;
-    text-align: center;
-    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
     border: 1px solid transparent;
     border-radius: 4px;
     color: rgb(190, 190, 190);
@@ -55,15 +63,16 @@ h1 {
 }
 
 .result {
+    font-size: 1rem;
 }
 
-.updating {
+.updating-score {
     color: rgb(235, 152, 0);
-    animation: pop 0.3s ease-in-out;
+    animation: pop-score 400ms;
     color: black;
 }
 
-@keyframes pop {
+@keyframes pop-score {
     0% {color: rgb(235, 152, 0);}
     50% {font-size: 7rem;}
     100% {font-size: 5rem; color: rgb(235, 152, 0);}
@@ -77,13 +86,13 @@ h1 {
 .scorebox {
     margin: 1rem 3rem 0;
     text-align: center;
-    min-height: 18rem;
+    min-height: 17rem;
 }
 
 .player-name, .computer-name {
     font-size: 1.3rem;
     font-weight: bold;
-    margin: 1rem 0 0.5rem;
+    margin: 1rem 0 0.8rem;
 }
 
 .score {
@@ -96,11 +105,41 @@ h1 {
     align-items: center;
     justify-content: center;
     border: 1px solid transparent;    
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 5px 2px rgb(218, 218, 218);
 }
 
 .selection {
     font-size: 0.8rem;
     color: rgb(190, 190, 190);
+}
+
+.play-again {
+    display: none;
+    justify-content: center;
+    margin: 1.5rem;
+}
+
+.play-again button {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: 18rem;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 1.5rem;
+    background-color: rgb(242, 242, 242);
+}
+
+.play-again button:hover {
+    cursor: pointer;
+    color: rgb(235, 152, 0);
+}
+
+.play-again button:active {
+    color: blue;
+}
+
+.play-again button:focus {
+    outline: none;
 }
