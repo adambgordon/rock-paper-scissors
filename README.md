@@ -1,4 +1,4 @@
-# rock_paper_scissors
+# Rock Paper Scissors
 
 Rock Paper Scissors game created in JS and CSS.
 
